@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useCallback, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-import { getTopBannerAction } from "../../store/actionCreators";
+import { getTopBannersAction } from "../../store/actionCreators";
 
 import { BannerWrapper, BannerLeft, BannerRight, BannerControl } from "./style";
 import { Carousel } from "antd";
@@ -21,7 +21,7 @@ export default memo(function KFTopBanner() {
 
   // 发送网络请求
   useEffect(() => {
-    dispatch(getTopBannerAction());
+    dispatch(getTopBannersAction());
   }, [dispatch]);
 
   // 其他 hooks

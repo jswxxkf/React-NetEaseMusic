@@ -6,11 +6,20 @@ export function getTopBanners() {
   });
 }
 
-export function getHotRecommends() {
+export function getHotRecommends(limit) {
   return request({
     url: "/personalized",
     params: {
-      limit: 8,
+      limit,
+    },
+  });
+}
+
+export function getNewAlbum(limit) {
+  return request({
+    url: "/top/album",
+    params: {
+      limit,
     },
   });
 }

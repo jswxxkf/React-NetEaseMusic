@@ -8,7 +8,6 @@ export const BannerWrapper = styled.div`
 
   .banner {
     height: 270px;
-    background-color: red;
 
     display: flex;
     position: relative;
