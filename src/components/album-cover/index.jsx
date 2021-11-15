@@ -1,18 +1,25 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 import { getScaledImage } from "../../utils/format-utils";
 
+import { Skeleton } from "antd";
 import { AlbumWrapper } from "./style";
 
 export default memo(function KFAlbumCover(props) {
   // state and props
+  const [loading, setLoading] = useState(1);
   const { info, width = 153, size = 130, bgp = "-845px" } = props;
 
   return (
-    <AlbumWrapper width={width} size={size} bgp={bgp}>
+    <AlbumWrapper width={width} size={size} bgp={bgp} loading={loading}>
       <div className="album-image">
-        <img src={getScaledImage(info.picUrl, size)} alt="" />
-        <a href="todo" className="image_cover cover">
+        <img
+          src={getScaledImage(info.picUrl, size)}
+          alt=""
+          onLoad={() => setLoading(0)}
+        />
+        {!!loading && <Skeleton.Image className="skeleton" />}
+        <a href="todo" className="sprite_cover cover">
           {info.name}
         </a>
       </div>

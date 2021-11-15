@@ -11,12 +11,23 @@ export const AlbumWrapper = styled.div`
     margin-top: 15px;
 
     img {
+      visibility: ${(props) => (props.loading ? "hidden" : "visible")};
       width: ${(props) => props.size + "px"};
       height: ${(props) => props.size + "px"};
     }
 
+    .skeleton {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
     .cover {
       position: absolute;
+      z-index: 2;
       left: 0;
       right: 0;
       top: 0;

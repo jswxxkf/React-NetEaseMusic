@@ -11,10 +11,21 @@ export const SongsCoverWrapper = styled.div`
     & > img {
       width: 140px;
       height: 140px;
+      visibility: ${(props) => (props.loading ? "hidden" : "visible")};
+    }
+
+    .skeleton {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .cover {
       position: absolute;
+      z-index: 2;
       top: 0;
       left: 0;
       width: 100%;

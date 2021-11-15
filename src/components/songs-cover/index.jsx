@@ -1,16 +1,24 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
+import { Skeleton } from "antd";
 import { SongsCoverWrapper } from "./style";
 // utils
 import { getCount, getScaledImage } from "../../utils/format-utils";
 
 export default memo(function KGSongsCover(props) {
+  // state & props
+  const [loading, setLoading] = useState(1);
   const { info } = props;
 
   return (
-    <SongsCoverWrapper>
+    <SongsCoverWrapper loading={loading}>
       <div className="cover-top">
-        <img src={getScaledImage(info.picUrl, 140)} alt="" />
+        <img
+          src={getScaledImage(info.picUrl, 140)}
+          alt=""
+          onLoad={() => setLoading(0)}
+        />
+        {!!loading && <Skeleton.Image className="skeleton" />}
         <div className="sprite_cover cover">
           <div className="sprite_cover info">
             <span>
