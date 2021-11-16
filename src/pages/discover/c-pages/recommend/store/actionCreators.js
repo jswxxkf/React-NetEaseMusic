@@ -61,7 +61,6 @@ export const getNewAlbumsAction = (limit) => {
 export const getTopListAction = (idx) => {
   return (dispatch) => {
     getTopList(idx).then((res) => {
-      console.log(res);
       switch (idx) {
         case 0:
           dispatch(changeThriveRankingAction(res));
