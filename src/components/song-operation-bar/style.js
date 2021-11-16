@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const SongOperationBarWrapper = styled.div`
   display: flex;
+  width: 450px;
+  justify-content: space-between;
   align-items: center;
   .play {
     display: flex;
@@ -18,12 +20,14 @@ export const SongOperationBarWrapper = styled.div`
     }
     .play-icon {
       display: inline-block;
+      width: 75px;
       height: 31px;
       line-height: 31px;
       background-position: right -428px;
       .play {
         color: #fff;
         display: flex;
+        justify-content: space-around;
         align-items: center;
         padding: 0 7px 0 8px;
         background-position: 0 -387px;
@@ -41,13 +45,13 @@ export const SongOperationBarWrapper = styled.div`
     display: inline-block;
     height: 31px;
     margin-right: 6px;
-    padding-right: 3px;
+    padding-right: 5px;
     background-position: right -1020px;
     .icon {
       display: inline-block;
       height: 31px;
       line-height: 31px;
-      padding: 0 7px 0 28px;
+      padding: 0 0px 0 28px;
       font-family: simsun;
     }
     .favor-icon {

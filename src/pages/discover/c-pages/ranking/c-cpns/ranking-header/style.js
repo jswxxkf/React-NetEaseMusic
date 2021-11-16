@@ -17,7 +17,7 @@ export const RankingHeaderWrapper = styled.div`
     }
   }
   .info {
-    margin-left: 30px;
+    margin-left: 20px;
     .title {
       color: #333;
       font-size: 20px;

@@ -24,7 +24,7 @@ export default memo(function KFSongOperationBar(props) {
       <a href="/todo" className="item sprite_button">
         <i className="icon favor-icon sprite_button">{shareTitle}</i>
       </a>
-      <a href="/todo" className="item sprite_button">
+      <a href="/todo" className="item sprite_button download">
         <i className="icon favor-icon sprite_button">{downloadTitle}</i>
       </a>
       <a href="/todo" className="item sprite_button">

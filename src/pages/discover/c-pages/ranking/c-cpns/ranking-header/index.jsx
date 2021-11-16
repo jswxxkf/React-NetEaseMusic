@@ -27,10 +27,12 @@ export default memo(function KFRankingHeader() {
         <div className="image_cover cover">封面</div>
       </div>
       <div className="info">
-        <div className="title">{headerInfo.name}</div>
+        <div className="title">{headerInfo.name ?? " "}</div>
         <div className="time">
           <i className="sprite_icon2 clock"></i>
-          <div>最近更新：{formatMonthDay(headerInfo.updateTime)}</div>
+          <div>
+            最近更新：{formatMonthDay(headerInfo.updateTime ?? new Date())}
+          </div>
           <div className="update-freq">
             （{topList[currentIndex]?.updateFrequency}）
           </div>

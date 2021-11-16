@@ -74,7 +74,7 @@ export const RankingListWrapper = styled.div`
             background-position: 0 -103px;
           }
           .name {
-            width: 250px;
+            width: 200px;
             text-align: left;
             margin-left: 10px;
           }
