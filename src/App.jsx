@@ -8,6 +8,7 @@ import { HashRouter } from "react-router-dom";
 // sub cpn
 import KFAppHeader from "@/components/app-header";
 import KFAppFooter from "@/components/app-footer";
+import KFAppPlayerBar from "./pages/player/app-player-bar";
 
 export default memo(function App() {
   return (
@@ -16,6 +17,7 @@ export default memo(function App() {
         <KFAppHeader />
         {renderRoutes(routes)}
         <KFAppFooter />
+        <KFAppPlayerBar />
       </HashRouter>
     </Provider>
   );

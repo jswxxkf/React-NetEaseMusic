@@ -8,13 +8,13 @@ export const HotHostsWrapper = styled.div`
       display: flex;
       height: 40px;
       margin-bottom: 10px;
-      background-color: #fafafa;
       .avatar {
         width: 40px;
         height: 40px;
       }
       .intro {
         display: flex;
+        width: 165px;
         padding-left: 10px;
         flex-direction: column;
         font-size: 12px;
