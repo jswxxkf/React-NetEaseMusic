@@ -1,9 +1,13 @@
 import * as actionTypes from "./constants";
-import { getTopBanners } from "@/service/recommend";
-import { getHotRecommends } from "@/service/recommend";
-import { getNewAlbum } from "@/service/recommend";
-import { getTopList } from "@/service/recommend";
+import {
+  getTopBanners,
+  getHotRecommends,
+  getNewAlbum,
+  getTopList,
+  getArtistList,
+} from "@/service/recommend";
 
+// 派发action mutate状态
 export const changeTopBannersAction = (res) => ({
   type: actionTypes.CHANGE_TOP_BANNERS,
   topBanners: res.banners,
@@ -34,6 +38,12 @@ export const changeOriginRankingAction = (res) => ({
   originRanking: res.playlist,
 });
 
+export const changeSettleSingersAction = (res) => ({
+  type: actionTypes.CHANGE_SETTLE_SINGERS,
+  settleSingers: res.artists,
+});
+
+// 包含网络请求
 export const getTopBannersAction = () => {
   return (dispatch) => {
     getTopBanners().then((res) => {
@@ -73,6 +83,14 @@ export const getTopListAction = (idx) => {
           break;
         default:
       }
+    });
+  };
+};
+
+export const getSettleSingers = () => {
+  return (dispatch) => {
+    getArtistList(5, 5001).then((res) => {
+      dispatch(changeSettleSingersAction(res));
     });
   };
 };

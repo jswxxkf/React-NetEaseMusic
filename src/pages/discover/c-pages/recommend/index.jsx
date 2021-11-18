@@ -11,7 +11,7 @@ import KFTopBanner from "./c-cpns/top-banner";
 import KFHotRecommend from "./c-cpns/hot-recommend";
 import KFNewAlbum from "./c-cpns/new-album";
 import KFRecommendRanking from "./c-cpns/recommend-ranking";
-import KFHotAnchor from "./c-cpns/hot-anchor";
+import KFHotHosts from "./c-cpns/hot-hosts";
 import KFSettleSinger from "./c-cpns/settle-singer";
 import KFUserLogin from "./c-cpns/user-login";
 
@@ -28,7 +28,7 @@ function KFRecommend() {
         <RecommendRight>
           <KFUserLogin />
           <KFSettleSinger />
-          <KFHotAnchor />
+          <KFHotHosts />
         </RecommendRight>
       </Content>
     </RecommendWrapper>
