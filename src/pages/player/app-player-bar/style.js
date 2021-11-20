@@ -27,6 +27,32 @@ export const Control = styled.div`
   display: flex;
   align-items: center;
   .prev,
+  .next,
+  .play {
+    position: relative;
+    cursor: pointer;
+    &::before {
+      content: ${'"'}${(props) => props.tipText}${'"'};
+      display: none;
+      position: absolute;
+      top: calc(50% - 38px);
+      left: 50%;
+      width: max-content;
+      height: 30px;
+      transform: translate(-50%, -50%);
+      line-height: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+    &:hover {
+      &::before {
+        display: block;
+      }
+    }
+  }
+  .prev,
   .next {
     width: 28px;
     height: 28px;
@@ -118,8 +144,8 @@ export const Operator = styled.div`
     background-position: -114px -163px;
   }
   .left {
+    display: flex;
     position: relative;
-    top: 3px;
   }
   .right {
     display: flex;
@@ -149,7 +175,34 @@ export const Operator = styled.div`
       text-align: center;
       color: #ccc;
       width: 59px;
-      background-position: -42px -68px;
+      background-position: -42px -70px;
+    }
+  }
+  .favor,
+  .share,
+  .right > .volume,
+  .right > .loop,
+  .right > .playlist {
+    position: relative;
+    &::before {
+      content: ${'"'}${(props) => props.tipText}${'"'};
+      display: none;
+      position: absolute;
+      top: calc(50% - 38px);
+      left: 50%;
+      width: max-content;
+      height: 30px;
+      transform: translate(-50%, -50%);
+      line-height: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+    &:hover {
+      &::before {
+        display: block;
+      }
     }
   }
 `;

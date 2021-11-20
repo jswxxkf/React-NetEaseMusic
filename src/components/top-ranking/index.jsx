@@ -1,4 +1,6 @@
 import React, { memo } from "react";
+import { useDispatch } from "react-redux";
+import { getSongDetailAction } from "../../pages/player/store";
 import { getScaledImage } from "@/utils/format-utils";
 
 import { TopRankingWrapper } from "./style";
@@ -7,6 +9,13 @@ export default memo(function KFTopRanking(props) {
   // state & props
   const { info } = props;
   const { tracks = [] } = info;
+  // redux hooks
+  const dispatch = useDispatch();
+  // other handle
+  const playMusic = (item) => {
+    // 派发action，将该首歌添加至redux的播放列表，供下方播放条播放
+    dispatch(getSongDetailAction(item.id));
+  };
 
   return (
     <TopRankingWrapper>
@@ -32,7 +41,10 @@ export default memo(function KFTopRanking(props) {
                   {item.name}
                 </div>
                 <div className="operate">
-                  <button className="btn sprite_02 play"></button>
+                  <button
+                    className="btn sprite_02 play"
+                    onClick={() => playMusic(item)}
+                  ></button>
                   <button className="btn sprite_icon2 addto"></button>
                   <button className="btn sprite_02 favor"></button>
                 </div>

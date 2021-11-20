@@ -46,7 +46,7 @@ export const changePlaySongAction = (tag) => {
     const playList = getState().getIn(["player", "playList"]);
     // 2. 判断当前播放列表
     switch (playSequence) {
-      // 随机播放
+      // 随机播放(目前允许重复到同一首[基于自己的体验])
       case 1:
         currentSongIndex = Math.floor(Math.random() * playList.length);
         break;
@@ -63,11 +63,7 @@ export const changePlaySongAction = (tag) => {
     dispatch(changeCurrentSongIndexAction(currentSongIndex));
     dispatch(changeCurrentSongAction(currentSong));
     // 4. 获取当前歌曲的歌词，并且解析歌词
-    getLyric(currentSong.id).then((res) => {
-      const lycString = res.lrc.lyric;
-      const lyrics = parseLyric(lycString);
-      dispatch(changeCurrentLyricsAction(lyrics));
-    });
+    dispatch(getLyricAction(currentSong.id));
   };
 };
 
@@ -85,7 +81,7 @@ export const getSongDetailAction = (ids) => {
     } else {
       // 未在本地redux中找到数据，则发起网络请求
       getSongDetail(ids).then((res) => {
-        const song = res.song && res.song[0];
+        const song = res.songs && res.songs[0];
         if (!song) return;
         // 1. 添加到playlist中
         const newPlayList = [...playList];
@@ -96,5 +92,17 @@ export const getSongDetailAction = (ids) => {
         dispatch(changeCurrentSongAction(song));
       });
     }
+    dispatch(getLyricAction(ids));
+  };
+};
+
+export const getLyricAction = (id) => {
+  return (dispatch) => {
+    // 获取当前歌曲的歌词，并且解析
+    getLyric(id).then((res) => {
+      const lycString = res.lrc.lyric;
+      const lyrics = parseLyric(lycString);
+      dispatch(changeCurrentLyricsAction(lyrics));
+    });
   };
 };

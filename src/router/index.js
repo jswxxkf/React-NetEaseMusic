@@ -8,6 +8,7 @@ import KFSongs from "@/pages/discover/c-pages/songs";
 import KFDjRadio from "@/pages/discover/c-pages/djradio";
 import KFArtist from "@/pages/discover/c-pages/artist";
 import KFAlbum from "@/pages/discover/c-pages/album";
+import KFPlayer from "@/pages/player";
 import { Redirect } from "react-router";
 
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
       { path: "/discover/djradio", component: KFDjRadio },
       { path: "/discover/artist", component: KFArtist },
       { path: "/discover/album", component: KFAlbum },
+      { path: "/discover/player", component: KFPlayer },
     ],
   },
   { path: "/mine", component: KFMine },
