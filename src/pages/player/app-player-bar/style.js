@@ -21,6 +21,25 @@ export const AppPlayerBarWrapper = styled.div`
     bottom: 0;
     height: 47px;
   }
+  .panel-enter {
+    opacity: 0;
+    bottom: -227px;
+  }
+  .panel-enter-active {
+    opacity: 1;
+    bottom: 64px;
+    transition: all 0.5s ease;
+  }
+  .panel-enter-done,
+  .panel-exit {
+    opacity: 1;
+    bottom: 64px;
+  }
+  .panel-exit-active {
+    opacity: 0;
+    bottom: -227px;
+    transition: all 0.5s ease;
+  }
 `;
 
 export const Control = styled.div`
@@ -34,6 +53,7 @@ export const Control = styled.div`
     &::before {
       content: ${'"'}${(props) => props.tipText}${'"'};
       display: none;
+      padding: 0 10px;
       position: absolute;
       top: calc(50% - 38px);
       left: 50%;
@@ -82,17 +102,47 @@ export const PlayInfo = styled.div`
     border-radius: 5px;
   }
   .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 1;
     color: #a1a1a1;
     margin-left: 10px;
     .song {
-      color: #e1e1e1;
+      display: flex;
       position: relative;
       top: 8px;
       left: 8px;
+      color: #e1e1e1;
       .singer-name {
         color: #a1a1a1;
         margin-left: 10px;
+      }
+      .lyric-finetune-panel {
+        width: 200px;
+        margin-left: 50px;
+        display: flex;
+        justify-content: space-evenly;
+        .finetune-value {
+          color: #a1a1a1;
+          cursor: pointer;
+          &.activeFinetune {
+            color: #fff;
+          }
+        }
+      }
+      .lyric-fontsize-panel {
+        width: 150px;
+        margin-left: 30px;
+        display: flex;
+        justify-content: space-evenly;
+        .fontsize-value {
+          color: #a1a1a1;
+          cursor: pointer;
+          &.activeFontSize {
+            color: #fff;
+          }
+        }
       }
     }
     .progress {
@@ -124,6 +174,31 @@ export const PlayInfo = styled.div`
         .divider {
           margin: 0 3px;
         }
+      }
+    }
+  }
+  .lyric-finetune-panel,
+  .lyric-fontsize-panel {
+    position: relative;
+    &::before {
+      content: ${'"'}${(props) => props.tipText}${'"'};
+      display: none;
+      padding: 0 10px;
+      position: absolute;
+      top: calc(50% - 30px);
+      left: 50%;
+      width: max-content;
+      height: 30px;
+      transform: translate(-50%, -50%);
+      line-height: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+    &:hover {
+      &::before {
+        display: block;
       }
     }
   }
@@ -180,13 +255,14 @@ export const Operator = styled.div`
   }
   .favor,
   .share,
-  .right > .volume,
-  .right > .loop,
-  .right > .playlist {
+  .volume,
+  .loop,
+  .playlist {
     position: relative;
     &::before {
       content: ${'"'}${(props) => props.tipText}${'"'};
       display: none;
+      padding: 0 10px;
       position: absolute;
       top: calc(50% - 38px);
       left: 50%;

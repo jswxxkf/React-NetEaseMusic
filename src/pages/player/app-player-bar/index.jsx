@@ -5,26 +5,36 @@ import {
   getSongDetailAction,
   changePlaySongAction,
   changePlaySequenceAction,
+  changeCurrentLyricIndexAction,
 } from "../store/actionCreators";
 import {
   getPlayUrl,
   formatMinuteSecond,
   getScaledImage,
 } from "@/utils/format-utils";
+import classNames from "classnames";
 
+import { Slider, message } from "antd";
+import { CSSTransition } from "react-transition-group";
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from "./style";
-import { Slider } from "antd";
+import KFAppPlayerPanel from "../app-player-panel";
 
 export default memo(function KFAppPlayerBar(props) {
-  // props & states
+  // props & states & non-reactive
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [showPlayerPanel, setShowPlayerPanel] = useState(false);
   // 进度条进度正在被拖拽而变化
   const [isChanging, setIsChanging] = useState(false);
   // hover时，上方提示文字
   const [tipText, setTipText] = useState("");
+  // 歌词同步微调值(s)
+  const [lyricFineTune, setLyricFineTune] = useState(-0.5);
+  // const [lyricFontSize, setLyricFontSize] = useState("M");
+  const fineTuneValues = [-1, -0.5, 0, 0.5, 1];
+  // const lyricFontSizes = ["S", "M", "L"];
   // redux hooks
   const {
     currentSong,
@@ -79,8 +89,12 @@ export default memo(function KFAppPlayerBar(props) {
     setIsPlaying(!isPlaying);
     if (isPlaying) {
       audioRef.current.pause();
+      setTipText("播放");
     } else {
-      audioRef.current.play().catch((err) => setIsPlaying(false));
+      audioRef.current
+        .play()
+        .then((res) => setTipText("暂停"))
+        .catch((err) => setIsPlaying(false));
     }
   }, [isPlaying]);
 
@@ -91,6 +105,37 @@ export default memo(function KFAppPlayerBar(props) {
     if (!isChanging) {
       setCurrentTime(currentTime);
       setProgress(((currentTime * 1000) / duration) * 100); // (当前时间[ms]/总时长[ms]%)
+    }
+    // 获取当前时间对应的歌词
+    let lyricLength = currentLyrics.length;
+    let i = 0;
+    for (; i < lyricLength; ++i) {
+      const lyricTime = currentLyrics[i].time;
+      if ((currentTime + lyricFineTune) * 1000 < lyricTime) {
+        break;
+      }
+    }
+    // 当前的i指向的是下一句歌词，故减去一
+    // 但假如微调后取到-1,即数组越界，则需要置为0
+    const finalIndex = i - 1 < 0 ? 0 : i - 1;
+    // finalIndex为0，也必须先行更新歌词(避免切歌后，仍显示上一首歌的第一句歌词)
+    if (finalIndex === 0) {
+      message.open({
+        content: currentLyrics[0].content,
+        key: "lyric",
+        duration: 0,
+        className: "lyric-msg",
+      });
+    }
+    // 避免频繁操作redux
+    if (finalIndex !== currentLyricIndex) {
+      dispatch(changeCurrentLyricIndexAction(finalIndex));
+      message.open({
+        content: currentLyrics[finalIndex].content,
+        key: "lyric",
+        duration: 0,
+        className: "lyric-msg",
+      });
     }
   };
 
@@ -135,6 +180,32 @@ export default memo(function KFAppPlayerBar(props) {
     [duration, isPlaying, play]
   );
 
+  const mapPlaySeqToMode = (playSeq) => {
+    switch (playSeq) {
+      case 0:
+        return "顺序播放";
+      case 1:
+        return "随机播放";
+      case 2:
+        return "单曲循环";
+      default:
+        return "顺序播放";
+    }
+  };
+
+  // const mapLyricFzToValue = (lycFz) => {
+  //   switch (lycFz) {
+  //     case "S":
+  //       return "12px";
+  //     case "M":
+  //       return "14px";
+  //     case "L":
+  //       return "18px";
+  //     default:
+  //       return "14px";
+  //   }
+  // };
+
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="content wrap-v2">
@@ -147,7 +218,7 @@ export default memo(function KFAppPlayerBar(props) {
           <button
             className="sprite_player play"
             onClick={() => play()}
-            onMouseEnter={() => setTipText("播放/暂停")}
+            onMouseEnter={() => setTipText(isPlaying ? "暂停" : "播放")}
           ></button>
           <button
             className="sprite_player next"
@@ -155,7 +226,7 @@ export default memo(function KFAppPlayerBar(props) {
             onMouseEnter={() => setTipText("下一首")}
           ></button>
         </Control>
-        <PlayInfo>
+        <PlayInfo tipText={tipText}>
           <div className="image">
             <NavLink to="/discover/player">
               <img src={getScaledImage(currentSong.al?.picUrl, 34)} alt="" />
@@ -167,6 +238,26 @@ export default memo(function KFAppPlayerBar(props) {
               <a className="singer-name" href="/todo">
                 {currentSong.ar[0].name ?? "---"}
               </a>
+              <div
+                className="lyric-finetune-panel"
+                onMouseEnter={() => setTipText("歌词同步微调")}
+              >
+                {fineTuneValues.map((item, index) => {
+                  return (
+                    <span
+                      key={index}
+                      className={classNames([
+                        "finetune-value",
+                        { activeFinetune: item === lyricFineTune },
+                      ])}
+                      onClick={() => setLyricFineTune(item)}
+                    >
+                      {item > 0 && "+"}
+                      {item}s
+                    </span>
+                  );
+                })}
+              </div>
             </div>
             <div className="progress">
               <Slider
@@ -204,14 +295,21 @@ export default memo(function KFAppPlayerBar(props) {
             ></button>
             <button
               className="sprite_player btn loop"
-              onClick={() =>
-                dispatch(changePlaySequenceAction(playSequence + 1))
-              }
-              onMouseEnter={() => setTipText("播放模式")}
+              onClick={() => {
+                setTipText(mapPlaySeqToMode(playSequence + 1));
+                dispatch(changePlaySequenceAction(playSequence + 1));
+              }}
+              onMouseEnter={() => setTipText(mapPlaySeqToMode(playSequence))}
             ></button>
             <button
               className="sprite_player btn playlist"
-              onMouseEnter={() => setTipText("播放列表")}
+              onClick={() => {
+                setTipText(showPlayerPanel ? "显示播放列表" : "隐藏播放列表");
+                setShowPlayerPanel(!showPlayerPanel);
+              }}
+              onMouseEnter={() =>
+                setTipText(showPlayerPanel ? "隐藏播放列表" : "显示播放列表")
+              }
             ></button>
           </div>
         </Operator>
@@ -221,6 +319,14 @@ export default memo(function KFAppPlayerBar(props) {
         onTimeUpdate={audioTimeUpdateHandler}
         onEnded={audioTimeEndedHandler}
       />
+      <CSSTransition
+        in={showPlayerPanel}
+        timeout={500}
+        unmountOnExit={true}
+        classNames="panel"
+      >
+        <KFAppPlayerPanel />
+      </CSSTransition>
     </AppPlayerBarWrapper>
   );
 });

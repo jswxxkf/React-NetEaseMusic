@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, Suspense } from "react";
 import { Provider } from "react-redux";
 // router & service & store
 import { renderRoutes } from "react-router-config";
@@ -15,7 +15,9 @@ export default memo(function App() {
     <Provider store={store}>
       <HashRouter>
         <KFAppHeader />
-        {renderRoutes(routes)}
+        <Suspense fallback={<div>page loading...</div>}>
+          {renderRoutes(routes)}
+        </Suspense>
         <KFAppFooter />
         <KFAppPlayerBar />
       </HashRouter>

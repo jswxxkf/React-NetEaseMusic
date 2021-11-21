@@ -17,3 +17,21 @@ export function getLyric(id) {
     },
   });
 }
+
+export function getSimilarPlayList(id) {
+  return request({
+    url: "/simi/playlist",
+    params: {
+      id,
+    },
+  });
+}
+
+export function getSimilarSongs(id) {
+  return request({
+    url: "/simi/song",
+    params: {
+      id,
+    },
+  });
+}

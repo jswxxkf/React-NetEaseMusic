@@ -1,8 +1,9 @@
 import * as actionType from "./constants";
 // services
-import { getSongDetail, getLyric } from "@/service/player";
+import { getSongDetail, getLyric, getSimilarSongs } from "@/service/player";
 // utils
 import { parseLyric } from "@/utils/lyrics-parser";
+import { getSimilarPlayList } from "../../../service/player";
 
 export const changeCurrentSongAction = (song) => ({
   type: actionType.CHANGE_CURRENT_SONG,
@@ -67,6 +68,16 @@ export const changePlaySongAction = (tag) => {
   };
 };
 
+export const changeSimilarPlayListAction = (res) => ({
+  type: actionType.CHANGE_SIMILAR_PLAY_LIST,
+  similarPlayList: res.playlists,
+});
+
+export const changeSimilarSongsAction = (res) => ({
+  type: actionType.CHANGE_SIMILAR_SONGS,
+  similarSongs: res.songs,
+});
+
 // functional actions
 export const getSongDetailAction = (ids) => {
   return (dispatch, getState) => {
@@ -103,6 +114,26 @@ export const getLyricAction = (id) => {
       const lycString = res.lrc.lyric;
       const lyrics = parseLyric(lycString);
       dispatch(changeCurrentLyricsAction(lyrics));
+    });
+  };
+};
+
+export const getSimilarPlayListAction = () => {
+  return (dispatch, getState) => {
+    const id = getState().getIn(["player", "currentSong"]).id;
+    if (!id) return;
+    getSimilarPlayList().then((res) => {
+      dispatch(changeSimilarPlayListAction(res));
+    });
+  };
+};
+
+export const getSimilarSongsAction = () => {
+  return (dispatch, getState) => {
+    const id = getState().getIn(["player", "currentSong"]).id;
+    if (!id) return;
+    getSimilarSongs().then((res) => {
+      dispatch(changeSimilarSongsAction(res));
     });
   };
 };

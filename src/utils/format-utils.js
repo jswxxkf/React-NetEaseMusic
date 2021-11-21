@@ -13,8 +13,12 @@ export function getScaledImage(imgUrl, size) {
   return `${imgUrl}?param=${size}y${size}`;
 }
 
+export function getGaussianBlurredImage(imgUrl, blurDist) {
+  return `${imgUrl}?imageView&blur=${blurDist[0]}x${blurDist[1]}`;
+}
+
 export function getPlayUrl(id) {
-  return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+  return `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
 }
 
 export function formatDate(time, fmt) {

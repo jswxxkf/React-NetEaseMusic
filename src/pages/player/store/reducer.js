@@ -299,6 +299,8 @@ const defaultState = Map({
     },
   ],
   playSequence: 0, // 0 顺序播放 1 随机播放 2 单曲循环
+  similarSongs: [],
+  similarPlayList: [],
 });
 
 const reducer = (state = defaultState, action) => {
@@ -315,6 +317,10 @@ const reducer = (state = defaultState, action) => {
       return state.set("playList", action.playList);
     case actionType.CHANGE_PLAY_SEQUENCE:
       return state.set("playSequence", action.sequence);
+    case actionType.CHANGE_SIMILAR_SONGS:
+      return state.set("similarSongs", action.similarSongs);
+    case actionType.CHANGE_SIMILAR_PLAY_LIST:
+      return state.set("similarPlayList", action.similarPlayList);
     default:
       return state;
   }

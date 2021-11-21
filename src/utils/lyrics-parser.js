@@ -18,11 +18,13 @@ export function parseLyric(lyricString) {
   for (let lyricLine of lyricLines) {
     if (lyricLine) {
       // returns an array containing the matched patterns
-      const result = parseExp.exec(lyricLine);
+      let result = parseExp.exec(lyricLine);
+      result = result.map((item) => parseInt(item));
       if (!result) continue;
       const time1 = result[1] * 60 * 1000; // 分
       const time2 = result[2] * 1000; // 秒
-      const time3 = result[3].length === 3 ? result[3] : result[3] * 10; // 毫秒
+      const time3 =
+        result[3].toString().length === 3 ? result[3] : result[3] * 10; // 毫秒
       // 当前行歌词对应的时间
       const time = time1 + time2 + time3;
       // 拿到当前行的歌词文本
