@@ -35,6 +35,9 @@ export default memo(function KFPanelPlayList() {
           </div>
         );
       })}
+      {playList.length === 0 && (
+        <div className="empty-list">您还未添加任何音乐哦~</div>
+      )}
     </PanelPlayListWrapper>
   );
 });

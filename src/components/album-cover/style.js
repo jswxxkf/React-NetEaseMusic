@@ -1,21 +1,20 @@
 import styled from "styled-components";
 
 export const AlbumWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: ${(props) => props.width + "px"};
-
+  height: 150px;
   .album-image {
     position: relative;
     width: ${(props) => props.width + "px"};
     height: ${(props) => props.size + "px"};
-    overflow: hidden;
-    margin-top: 15px;
-
     img {
       visibility: ${(props) => (props.loading ? "hidden" : "visible")};
       width: ${(props) => props.size + "px"};
       height: ${(props) => props.size + "px"};
     }
-
     .skeleton {
       position: absolute;
       z-index: 1;
@@ -24,7 +23,6 @@ export const AlbumWrapper = styled.div`
       top: 0;
       bottom: 0;
     }
-
     .cover {
       position: absolute;
       z-index: 2;
@@ -36,7 +34,6 @@ export const AlbumWrapper = styled.div`
       text-indent: -9999px;
     }
   }
-
   .album-info {
     font-size: 12px;
     width: ${(props) => props.size};
@@ -46,7 +43,6 @@ export const AlbumWrapper = styled.div`
       text-overflow: ellipsis;
       overflow: hidden;
     }
-
     .artist {
       color: #666;
     }

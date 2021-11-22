@@ -32,9 +32,8 @@ export default memo(function KFAppPlayerBar(props) {
   const [tipText, setTipText] = useState("");
   // 歌词同步微调值(s)
   const [lyricFineTune, setLyricFineTune] = useState(-0.5);
-  // const [lyricFontSize, setLyricFontSize] = useState("M");
   const fineTuneValues = [-1, -0.5, 0, 0.5, 1];
-  // const lyricFontSizes = ["S", "M", "L"];
+
   // redux hooks
   const {
     currentSong,
@@ -60,6 +59,16 @@ export default memo(function KFAppPlayerBar(props) {
     dispatch(getSongDetailAction(21253806)); // one more night
   }, [dispatch]);
 
+  useEffect(() => {
+    if (playList.length === 0) {
+      setIsPlaying(false);
+      setCurrentTime(0);
+      setProgress(0);
+      setDuration(0);
+      message.destroy();
+    }
+  }, [playList]);
+
   // 切歌产生的副作用
   useEffect(() => {
     // 需要切换audio标签的播放源
@@ -79,6 +88,7 @@ export default memo(function KFAppPlayerBar(props) {
   // 其他业务逻辑
   // 切换歌曲
   const switchMusic = (tag) => {
+    if (playList.length === 0) return;
     // 若随机到相同歌曲，也应当置为从头开始
     audioRef.current.currentTime = 0;
     dispatch(changePlaySongAction(tag));
@@ -86,6 +96,7 @@ export default memo(function KFAppPlayerBar(props) {
 
   // 切换audio的播放/暂停
   const play = useCallback(() => {
+    if (playList.length === 0) return;
     setIsPlaying(!isPlaying);
     if (isPlaying) {
       audioRef.current.pause();
@@ -96,10 +107,11 @@ export default memo(function KFAppPlayerBar(props) {
         .then((res) => setTipText("暂停"))
         .catch((err) => setIsPlaying(false));
     }
-  }, [isPlaying]);
+  }, [isPlaying, playList.length]);
 
   // audio播放中，需要更新slider的progress
   const audioTimeUpdateHandler = (e) => {
+    if (playList.length === 0) return;
     const currentTime = e.target.currentTime; // 拿到的是秒
     // 如果进度条没有在拖拽，则更新当前播放时间
     if (!isChanging) {
@@ -193,19 +205,6 @@ export default memo(function KFAppPlayerBar(props) {
     }
   };
 
-  // const mapLyricFzToValue = (lycFz) => {
-  //   switch (lycFz) {
-  //     case "S":
-  //       return "12px";
-  //     case "M":
-  //       return "14px";
-  //     case "L":
-  //       return "18px";
-  //     default:
-  //       return "14px";
-  //   }
-  // };
-
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="content wrap-v2">
@@ -229,14 +228,22 @@ export default memo(function KFAppPlayerBar(props) {
         <PlayInfo tipText={tipText}>
           <div className="image">
             <NavLink to="/discover/player">
-              <img src={getScaledImage(currentSong.al?.picUrl, 34)} alt="" />
+              <img
+                src={getScaledImage(
+                  currentSong.al
+                    ? currentSong.al.picUrl
+                    : "https://s4.music.126.net/style/web2/img/default/default_album.jpg",
+                  34
+                )}
+                alt=""
+              />
             </NavLink>
           </div>
           <div className="info">
             <div className="song">
-              <span className="song-name">{currentSong.name ?? "---"}</span>
+              <span className="song-name">{currentSong.name ?? "N/A"}</span>
               <a className="singer-name" href="/todo">
-                {currentSong.ar[0].name ?? "---"}
+                {currentSong.ar ? currentSong.ar[0].name : "N/A"}
               </a>
               <div
                 className="lyric-finetune-panel"
@@ -269,10 +276,14 @@ export default memo(function KFAppPlayerBar(props) {
               />
               <div className="time">
                 <span className="now-time">
-                  {formatMinuteSecond(currentTime * 1000)}
+                  {playList.length === 0
+                    ? "N/A"
+                    : formatMinuteSecond(currentTime * 1000)}
                 </span>
                 <span className="divider">/</span>
-                <span className="duration">{formatMinuteSecond(duration)}</span>
+                <span className="duration">
+                  {playList.length === 0 ? "N/A" : formatMinuteSecond(duration)}
+                </span>
               </div>
             </div>
           </div>

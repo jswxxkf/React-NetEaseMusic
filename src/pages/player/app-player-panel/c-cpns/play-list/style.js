@@ -5,6 +5,13 @@ export const PanelPlayListWrapper = styled.div`
   position: relative;
   width: 553px;
   padding: 2px;
+  .empty-list {
+    position: relative;
+    padding: 10px;
+    top: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+  }
   .play-item {
     position: relative;
     display: flex;
