@@ -59,6 +59,7 @@ export default memo(function KFAppPlayerBar(props) {
     dispatch(getSongDetailAction(21253806)); // one more night
   }, [dispatch]);
 
+  // 播放列表清空后的副作用
   useEffect(() => {
     if (playList.length === 0) {
       setIsPlaying(false);
@@ -84,6 +85,13 @@ export default memo(function KFAppPlayerBar(props) {
     // 设置新歌曲的时长
     setDuration(currentSong.dt);
   }, [currentSong]);
+
+  // 播放列表面板展示时的副作用(需隐藏播放条上方歌词)
+  useEffect(() => {
+    if (showPlayerPanel) {
+      message.destroy();
+    }
+  }, [showPlayerPanel]);
 
   // 其他业务逻辑
   // 切换歌曲
@@ -131,9 +139,9 @@ export default memo(function KFAppPlayerBar(props) {
     // 但假如微调后取到-1,即数组越界，则需要置为0
     const finalIndex = i - 1 < 0 ? 0 : i - 1;
     // finalIndex为0，也必须先行更新歌词(避免切歌后，仍显示上一首歌的第一句歌词)
-    if (finalIndex === 0) {
+    if (finalIndex === 0 && !showPlayerPanel) {
       message.open({
-        content: currentLyrics[0].content,
+        content: currentLyrics[0]?.content ?? " ",
         key: "lyric",
         duration: 0,
         className: "lyric-msg",
@@ -142,12 +150,14 @@ export default memo(function KFAppPlayerBar(props) {
     // 避免频繁操作redux
     if (finalIndex !== currentLyricIndex) {
       dispatch(changeCurrentLyricIndexAction(finalIndex));
-      message.open({
-        content: currentLyrics[finalIndex].content,
-        key: "lyric",
-        duration: 0,
-        className: "lyric-msg",
-      });
+      if (!showPlayerPanel) {
+        message.open({
+          content: currentLyrics[finalIndex]?.content ?? " ",
+          key: "lyric",
+          duration: 0,
+          className: "lyric-msg",
+        });
+      }
     }
   };
 

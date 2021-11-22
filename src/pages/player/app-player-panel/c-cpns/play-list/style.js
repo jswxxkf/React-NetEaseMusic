@@ -9,6 +9,7 @@ export const PanelPlayListWrapper = styled.div`
     position: relative;
     padding: 10px;
     top: 50%;
+    font-size: 20px;
     text-align: center;
     transform: translateY(-50%);
   }
@@ -21,6 +22,8 @@ export const PanelPlayListWrapper = styled.div`
     height: 28px;
     line-height: 28px;
     color: #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease;
     &.active {
       color: #fff;
       background-color: #000;
@@ -32,6 +35,10 @@ export const PanelPlayListWrapper = styled.div`
         height: 13px;
         background: url(${playlistSprite}) -182px 0;
       }
+    }
+    &:hover {
+      color: #fff;
+      background-color: #000;
     }
     .right {
       display: flex;

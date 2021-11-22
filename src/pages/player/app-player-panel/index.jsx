@@ -5,6 +5,7 @@ import { getGaussianBlurredImage } from "@/utils/format-utils";
 import { AppPlayerPanelWrapper } from "./style";
 import KFPanelPlayList from "./c-cpns/play-list";
 import KFPanelPlayHeader from "./c-cpns/play-header";
+import KFPanelPlayLyric from "./c-cpns/play-lyric";
 
 export default memo(function KFAppPlayerPanel() {
   // redux hooks
@@ -26,7 +27,7 @@ export default memo(function KFAppPlayerPanel() {
           alt=""
         />
         <KFPanelPlayList />
-        <h2>Lyric Panel</h2>
+        <KFPanelPlayLyric />
       </div>
     </AppPlayerPanelWrapper>
   );

@@ -1,12 +1,14 @@
 import React, { memo } from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import classNames from "classnames";
 import { formatMinuteSecond } from "@/utils/format-utils";
+import { getSongDetailAction } from "../../../store/actionCreators";
 
 import { PanelPlayListWrapper } from "./style";
 
 export default memo(function KFPanelPlayList() {
   // redux hooks
+  const dispatch = useDispatch();
   const { playList, currentSongIndex } = useSelector(
     (state) => ({
       playList: state.getIn(["player", "playList"]),
@@ -25,6 +27,7 @@ export default memo(function KFPanelPlayList() {
               "play-item",
               { active: index === currentSongIndex },
             ])}
+            onClick={() => dispatch(getSongDetailAction(playList[index].id))}
           >
             <div className="left">{item.name ?? "---"}</div>
             <div className="right">
@@ -36,7 +39,7 @@ export default memo(function KFPanelPlayList() {
         );
       })}
       {playList.length === 0 && (
-        <div className="empty-list">您还未添加任何音乐哦~</div>
+        <div className="empty-list">您的音乐播放列表空空如也哦~~</div>
       )}
     </PanelPlayListWrapper>
   );

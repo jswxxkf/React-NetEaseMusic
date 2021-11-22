@@ -27,6 +27,10 @@ export const PlayHeaderLeft = styled.div`
       color: #ccc;
       cursor: pointer;
       margin-right: 10px;
+      transition: color 0.5s ease;
+      &:hover {
+        color: #fff;
+      }
     }
     .icon {
       width: 16px;

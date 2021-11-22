@@ -15,16 +15,17 @@ import {
 export default memo(function KFPanelPlayHeader() {
   // redux hooks
   const dispatch = useDispatch();
-  const { playList } = useSelector(
+  const { playList, currentSong } = useSelector(
     (state) => ({
       playList: state.getIn(["player", "playList"]),
+      currentSong: state.getIn(["player", "currentSong"]),
     }),
     shallowEqual
   );
   // 其他业务逻辑
   const clearPlayListHandler = () => {
     dispatch(changeCurrentLyricsAction([]));
-    dispatch(changeCurrentSongAction({}))
+    dispatch(changeCurrentSongAction({}));
     dispatch(changePlayListAction([]));
   };
 
@@ -37,11 +38,11 @@ export default memo(function KFPanelPlayHeader() {
             <i className="sprite_playlist icon favor"></i>收藏全部
           </button>
           <button onClick={() => clearPlayListHandler()}>
-            <i className="sprite_playlist icon remove"></i>清除
+            <i className="sprite_playlist icon remove"></i>清除列表
           </button>
         </div>
       </PlayHeaderLeft>
-      <PlayHeaderRight></PlayHeaderRight>
+      <PlayHeaderRight>{currentSong.name ?? "N/A"}</PlayHeaderRight>
     </PanelPlayHeaderWrapper>
   );
 });

@@ -27,13 +27,13 @@ export const AppPlayerBarWrapper = styled.div`
   }
   .panel-enter-active {
     opacity: 1;
-    bottom: 64px;
+    bottom: 79px;
     transition: all 0.5s ease;
   }
   .panel-enter-done,
   .panel-exit {
     opacity: 1;
-    bottom: 64px;
+    bottom: 79px;
   }
   .panel-exit-active {
     opacity: 0;
@@ -130,6 +130,7 @@ export const PlayInfo = styled.div`
         .finetune-value {
           color: #a1a1a1;
           cursor: pointer;
+          transition: color 0.5s ease;
           &.activeFinetune {
             color: #fff;
           }
