@@ -19,33 +19,33 @@ export default memo(function KFAppFooter() {
             })}
           </div>
           <div className="copyright">
-            <span>网易公司版权所有©1997-2020</span>
+            <span>网易公司©1997-2020 提供网页原型</span>
             <span>
-              杭州乐读科技有限公司运营：
+              Network service provided by CoderWhy;
               <a
                 href="https://p1.music.126.net/Mos9LTpl6kYt6YTutA6gjg==/109951164248627501.png"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                浙网文[2018]3506-263号
+                &nbsp;Developed by Kaifeng Xue
               </a>
             </span>
           </div>
           <div className="report">
             <span>违法和不良信息举报电话：0571-89853516</span>
             <span>
-              举报邮箱：
+              我的邮箱：
               <a
-                href="mailto:ncm5990@163.com"
+                href="mailto:xuekaifeng012@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                ncm5990@163.com
+                xuekaifeng012@gmail.com
               </a>
             </span>
           </div>
           <div className="info">
-            <span>沪-腾讯云</span>
+            <span>沪 - 腾讯云</span>
             <a
               href="http://www.beian.miit.gov.cn/publish/query/indexFirst.action"
               rel="noopener noreferrer"

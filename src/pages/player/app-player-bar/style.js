@@ -183,7 +183,8 @@ export const PlayInfo = styled.div`
     }
   }
   .lyric-finetune-panel,
-  .lyric-fontsize-panel {
+  .lyric-fontsize-panel,
+  .image {
     position: relative;
     &::before {
       content: ${'"'}${(props) => props.tipText}${'"'};
@@ -205,6 +206,11 @@ export const PlayInfo = styled.div`
       &::before {
         display: block;
       }
+    }
+  }
+  .image {
+    &::before {
+      top: -21px;
     }
   }
 `;
@@ -251,11 +257,18 @@ export const Operator = styled.div`
       }};
     }
     .playlist {
+      position: relative;
       padding-left: 18px;
       text-align: center;
       color: #ccc;
       width: 59px;
       background-position: -42px -70px;
+      .play-num {
+        position: absolute;
+        top: 2px;
+        left: 34px;
+        color: #fff;
+      }
     }
   }
   .favor,

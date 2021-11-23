@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SongOperationBarWrapper = styled.div`
   display: flex;
   width: 450px;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   .play {
     display: flex;

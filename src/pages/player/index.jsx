@@ -1,5 +1,9 @@
 import React, { memo } from "react";
 
+import KFPlayerInfo from "./c-cpns/player-info";
+import KFPlayerComment from "./c-cpns/player-comment";
+import KFPlayerSongs from "./c-cpns/player-songs";
+import KFPlayerRelevant from "./c-cpns/player-relevant";
 import { PlayerWrapper, PlayerLeft, PlayerRight } from "./style";
 
 export default memo(function KFPlayer() {
@@ -7,12 +11,12 @@ export default memo(function KFPlayer() {
     <PlayerWrapper>
       <div className="content wrap-v2">
         <PlayerLeft>
-          <h2>KFPlayerInfo</h2>
-          <h2>KFSongContent</h2>
+          <KFPlayerInfo />
+          <KFPlayerComment />
         </PlayerLeft>
         <PlayerRight>
-          <h2>KFSongs</h2>
-          <h2>KFSongContent</h2>
+          <KFPlayerSongs />
+          <KFPlayerRelevant />
         </PlayerRight>
       </div>
     </PlayerWrapper>

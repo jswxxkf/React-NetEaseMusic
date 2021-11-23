@@ -40,7 +40,7 @@ export default memo(function KFAppHeader() {
         <HeaderRight>
           <Input
             className="search"
-            placeholder="音乐/视频/电台/用户"
+            placeholder="开启音乐之旅"
             prefix={<SearchOutlined />}
           />
           <div className="center">创作者中心</div>

@@ -236,7 +236,10 @@ export default memo(function KFAppPlayerBar(props) {
           ></button>
         </Control>
         <PlayInfo tipText={tipText}>
-          <div className="image">
+          <div
+            className="image"
+            onMouseEnter={() => setTipText("进入歌曲详情页")}
+          >
             <NavLink to="/discover/player">
               <img
                 src={getScaledImage(
@@ -331,7 +334,9 @@ export default memo(function KFAppPlayerBar(props) {
               onMouseEnter={() =>
                 setTipText(showPlayerPanel ? "隐藏播放列表" : "显示播放列表")
               }
-            ></button>
+            >
+              <span className="play-num">{playList.length}</span>
+            </button>
           </div>
         </Operator>
       </div>

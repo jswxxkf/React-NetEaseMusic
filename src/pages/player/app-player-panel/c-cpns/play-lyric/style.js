@@ -9,6 +9,7 @@ export const PanelPlayLyricWrapper = styled.div`
     display: none;
   }
   .lyric-content {
+    padding-bottom: 170px;
     .lyric-item {
       line-height: 32px;
       text-align: center;

@@ -21,15 +21,9 @@ export default memo(function KFPanelPlayLyric() {
   useEffect(() => {
     if (lycPanelRef.current) {
       if (currentLyricIndex > 0 && currentLyricIndex < 3) return;
-      // 已到底部
-      if (
-        lycPanelRef.current.scrollHeight - lycPanelRef.current.scrollTop <=
-        lycPanelRef.current.clientHeight
-      )
-        return;
       scrollTo(lycPanelRef.current, (currentLyricIndex - 3) * 32, 300);
     }
-  }, [lycPanelRef, currentLyricIndex]);
+  }, [lycPanelRef, currentLyricIndex, currentLyrics]);
 
   return (
     <PanelPlayLyricWrapper ref={lycPanelRef}>
@@ -43,7 +37,7 @@ export default memo(function KFPanelPlayLyric() {
                 { active: index === currentLyricIndex },
               ])}
             >
-              {item.content}
+              {item.content === "" ? "(停顿 break...)" : item.content}
             </div>
           );
         })}

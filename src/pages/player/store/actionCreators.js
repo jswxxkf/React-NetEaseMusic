@@ -122,7 +122,7 @@ export const getSimilarPlayListAction = () => {
   return (dispatch, getState) => {
     const id = getState().getIn(["player", "currentSong"]).id;
     if (!id) return;
-    getSimilarPlayList().then((res) => {
+    getSimilarPlayList(id).then((res) => {
       dispatch(changeSimilarPlayListAction(res));
     });
   };
@@ -132,7 +132,7 @@ export const getSimilarSongsAction = () => {
   return (dispatch, getState) => {
     const id = getState().getIn(["player", "currentSong"]).id;
     if (!id) return;
-    getSimilarSongs().then((res) => {
+    getSimilarSongs(id).then((res) => {
       dispatch(changeSimilarSongsAction(res));
     });
   };
