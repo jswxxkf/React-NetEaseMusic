@@ -1,9 +1,14 @@
 import React, { memo } from "react";
 
+import KFHotAlbum from "./c-cpns/hot-album";
+import KFTopAlbum from "./c-cpns/top-album";
+import { AlbumWrapper } from "./style";
+
 export default memo(function KFAlbum() {
   return (
-    <div>
-      <h2>KFAlbum</h2>
-    </div>
+    <AlbumWrapper>
+      <KFHotAlbum />
+      <KFTopAlbum />
+    </AlbumWrapper>
   );
 });

@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSongDetailAction } from "@/pages/player/store/actionCreators";
 
 import { formatMinuteSecond, getScaledImage } from "@/utils/format-utils";
 import { RankingListWrapper } from "./style";
@@ -7,6 +8,7 @@ import KFThemeHeaderSong from "@/components/theme-header-song";
 
 export default memo(function KFRankingList() {
   // redux hooks
+  const dispatch = useDispatch();
   const { playList } = useSelector((state) => ({
     playList: state.getIn(["ranking", "playList"]),
   }));
@@ -40,7 +42,11 @@ export default memo(function KFRankingList() {
                       {index < 3 ? (
                         <img src={getScaledImage(item.al.picUrl, 50)} alt="" />
                       ) : null}
-                      <span className="play sprite_table"></span>
+                      <span
+                        className="play sprite_table"
+                        title="播放"
+                        onClick={() => dispatch(getSongDetailAction(item.id))}
+                      ></span>
                       <span className="name text-nowrap" title={item.name}>
                         {item.name}
                       </span>
