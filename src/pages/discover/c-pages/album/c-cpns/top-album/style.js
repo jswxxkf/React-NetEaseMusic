@@ -1,3 +1,10 @@
 import styled from "styled-components";
 
-export const TopAlbumWrapper = styled.div``;
+export const TopAlbumWrapper = styled.div`
+  .album-list {
+    display: flex;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+`;

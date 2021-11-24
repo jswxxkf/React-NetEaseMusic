@@ -6,7 +6,7 @@ import { AlbumWrapper } from "./style";
 
 export default memo(function KFAlbum() {
   return (
-    <AlbumWrapper>
+    <AlbumWrapper className="wrap-v2">
       <KFHotAlbum />
       <KFTopAlbum />
     </AlbumWrapper>

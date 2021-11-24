@@ -1,4 +1,5 @@
 import * as actionType from "./constants";
+import { PER_PAGE_NUMBER } from "./constants";
 import { getHotAlbums, getTopAlbums } from "@/service/album";
 
 export const changeTopAlbumsAction = (res) => ({
@@ -11,12 +12,12 @@ export const changeHotAlbumsAction = (res) => ({
   hotAlbums: res.albums,
 });
 
-export const changeTopTotalAction = (total) => ({
+export const changeTopTotalAction = (topTotal) => ({
   type: actionType.CHANGE_TOP_TOTAL,
-  total,
+  topTotal,
 });
 
-export const getTopAlbumsAction = () => {
+export const getHotAlbumsAction = () => {
   return (dispatch) => {
     getHotAlbums().then((res) => {
       dispatch(changeHotAlbumsAction(res));
@@ -24,11 +25,13 @@ export const getTopAlbumsAction = () => {
   };
 };
 
-export const getHotAlbumsAction = (pageNum) => {
+export const getTopAlbumsAction = (pageNum) => {
   return (dispatch) => {
-    getTopAlbums(30, (pageNum - 1) * 30).then((res) => {
-      dispatch(changeHotAlbumsAction(res));
-      dispatch(changeTopTotalAction(res.total));
-    });
+    getTopAlbums(PER_PAGE_NUMBER, (pageNum - 1) * PER_PAGE_NUMBER).then(
+      (res) => {
+        dispatch(changeTopAlbumsAction(res));
+        dispatch(changeTopTotalAction(res.total));
+      }
+    );
   };
 };
