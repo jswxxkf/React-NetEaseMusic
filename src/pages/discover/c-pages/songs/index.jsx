@@ -1,6 +1,5 @@
 import React, { memo, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import {
   getCategoriesAction,
@@ -15,17 +14,23 @@ import { SongsWrapper } from "./style";
 export default memo(function KFSongs() {
   // redux hooks
   const dispatch = useDispatch();
-  const cat = useLocation().cat;
+  const { currentCategory } = useSelector(
+    (state) => ({
+      currentCategory: state.getIn(["songs", "currentCategory"]),
+    }),
+    shallowEqual
+  );
 
   // other hooks
+  // 一进入歌单页面，随即获取所有类别数据及默认类别(全部)下的歌曲
   useEffect(() => {
     dispatch(getCategoriesAction());
     dispatch(getCategorySongsAction(0));
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(changeCurrentCategoryAction(cat));
-  }, [dispatch, cat]);
+    dispatch(changeCurrentCategoryAction(currentCategory));
+  }, [dispatch, currentCategory]);
 
   // 其他业务逻辑
 

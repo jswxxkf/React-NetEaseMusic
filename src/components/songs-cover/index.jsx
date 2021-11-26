@@ -8,13 +8,13 @@ import { getCount, getScaledImage } from "../../utils/format-utils";
 export default memo(function KGSongsCover(props) {
   // state & props
   const [loading, setLoading] = useState(1);
-  const { info } = props;
+  const { info, right } = props;
 
   return (
-    <SongsCoverWrapper loading={loading}>
+    <SongsCoverWrapper loading={loading} right={right}>
       <div className="cover-top">
         <img
-          src={getScaledImage(info.picUrl, 140)}
+          src={getScaledImage(info.picUrl || info.coverImgUrl, 140)}
           alt=""
           onLoad={() => setLoading(0)}
         />
