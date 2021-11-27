@@ -9,15 +9,14 @@ import { HashRouter } from "react-router-dom";
 import KFAppHeader from "@/components/app-header";
 import KFAppFooter from "@/components/app-footer";
 import KFAppPlayerBar from "./pages/player/app-player-bar";
+import Fallback from "./components/fallback";
 
 export default memo(function App() {
   return (
     <Provider store={store}>
       <HashRouter>
         <KFAppHeader />
-        <Suspense fallback={<div>page loading...</div>}>
-          {renderRoutes(routes)}
-        </Suspense>
+        <Suspense fallback={<Fallback />}>{renderRoutes(routes)}</Suspense>
         <KFAppFooter />
         <KFAppPlayerBar />
       </HashRouter>

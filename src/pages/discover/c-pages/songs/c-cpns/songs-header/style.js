@@ -42,6 +42,26 @@ export const HeaderLeft = styled.div`
       background-position: -70px -543px;
     }
   }
+  // transition
+  .cate-enter {
+    top: 20px;
+    opacity: 0;
+  }
+  .cate-enter-active {
+    top: 55px;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+  .cate-enter-done,
+  .cate-exit {
+    top: 55px;
+    opacity: 1;
+  }
+  .cate-exit-active {
+    top: 20px;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
 `;
 
 export const HeaderRight = styled.div`

@@ -20,8 +20,8 @@ export const AlbumWrapper = styled.div`
       z-index: 1;
       left: 0;
       right: 0;
-      top: 0;
-      bottom: 0;
+      width: ${(props) => props.width + "px"};
+      height: ${(props) => props.size + "px"};
     }
     .cover {
       position: absolute;

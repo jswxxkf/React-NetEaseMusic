@@ -3,6 +3,7 @@ import { useSelector, shallowEqual } from "react-redux";
 
 import SongsCategory from "../songs-category";
 import { SongsHeaderWrapper, HeaderLeft, HeaderRight } from "./style";
+import { CSSTransition } from "react-transition-group";
 
 export default memo(function KFSongsHeader() {
   // state & props
@@ -27,7 +28,14 @@ export default memo(function KFSongsHeader() {
           <span>选择分类</span>
           <i className="sprite_icon2"></i>
         </button>
-        {showCategory && <SongsCategory categoryCloser={()=>setShowCategory(false)} />}
+        <CSSTransition
+          in={showCategory}
+          unmountOnExit={true}
+          timeout={500}
+          classNames="cate"
+        >
+          <SongsCategory categoryCloser={() => setShowCategory(false)} />
+        </CSSTransition>
       </HeaderLeft>
       <HeaderRight>
         <button className="hot">热门</button>

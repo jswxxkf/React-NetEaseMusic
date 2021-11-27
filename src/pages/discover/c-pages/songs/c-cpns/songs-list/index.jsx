@@ -26,8 +26,6 @@ export default memo(function KFSongsList() {
     dispatch(getCategorySongsAction(pageNum));
   };
 
-  console.log(songList);
-
   return (
     <SongsListWrapper>
       <div className="songs-list">
