@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-import { getTopListAction } from "../../store/actionCreators";
+// import { getTopListAction } from "../../store/actionCreators";
 
 import KFThemeHeaderRCM from "@/components/theme-header-rcm";
 import KFTopRanking from "@/components/top-ranking";
@@ -21,9 +21,9 @@ export default memo(function KFRecommendRanking() {
 
   // other hooks
   useEffect(() => {
-    dispatch(getTopListAction(0));
-    dispatch(getTopListAction(2));
-    dispatch(getTopListAction(3));
+    // dispatch(getTopListAction(0));
+    // dispatch(getTopListAction(2));
+    // dispatch(getTopListAction(3));
   }, [dispatch]);
 
   return (

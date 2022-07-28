@@ -20,7 +20,7 @@ export const changeHotRecommendsAction = (res) => ({
 
 export const changeNewAlbumsAction = (res) => ({
   type: actionTypes.CHANGE_NEW_ALBUMS,
-  newAlbums: res.albums,
+  newAlbums: res.weekData,
 });
 
 export const changeThriveRankingAction = (res) => ({
@@ -60,9 +60,9 @@ export const getHotRecommendsAction = (limit) => {
   };
 };
 
-export const getNewAlbumsAction = (limit) => {
+export const getNewAlbumsAction = (limit, offset) => {
   return (dispatch) => {
-    getNewAlbum(limit).then((res) => {
+    getNewAlbum(limit, offset).then((res) => {
       dispatch(changeNewAlbumsAction(res));
     });
   };

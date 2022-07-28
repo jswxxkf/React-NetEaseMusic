@@ -15,11 +15,12 @@ export function getHotRecommends(limit) {
   });
 }
 
-export function getNewAlbum(limit) {
+export function getNewAlbum(limit, offset) {
   return request({
     url: "/top/album",
     params: {
       limit,
+      offset
     },
   });
 }

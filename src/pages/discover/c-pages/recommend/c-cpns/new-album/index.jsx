@@ -18,7 +18,7 @@ export default memo(function KFNewAlbum() {
 
   // other hooks
   useEffect(() => {
-    dispatch(getNewAlbumsAction(NEW_ALBUM_PAGE_NUM * NEW_ALBUM_PER_PAGE));
+    dispatch(getNewAlbumsAction(NEW_ALBUM_PAGE_NUM * NEW_ALBUM_PER_PAGE, 0));
   }, [dispatch]);
   const pageRef = useRef();
 
